@@ -1,6 +1,6 @@
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
-import buble from "rollup-plugin-buble";
+import babel from 'rollup-plugin-babel';
 import uglify from "rollup-plugin-uglify-es";
 import pkg from "./package.json";
 
@@ -14,9 +14,9 @@ export default [{
   plugins: [
     resolve(),
     commonjs(),
-    buble({ // transpile ES2015+ to ES5
+    babel({ // transpile ES2015+ to ES5
       exclude: ["node_modules/**"],
-      transforms: { forOf: false }
+      transforms: { forOf: true }
     }),
     uglify()
   ]
@@ -27,7 +27,7 @@ export default [{
     { file: pkg.module, format: "es" }
   ],
   plugins: [
-    buble({
+    babel({
       exclude: ["node_modules/**"],
       transforms: { forOf: true }
     })
